@@ -1,0 +1,1562 @@
+:root {
+  --bg: #050816;
+  --bg-elevated: #0b1020;
+  --bg-elevated-soft: #11172a;
+  --accent-bus: #ffb74d;
+  --accent-bus-strong: #ff9800;
+  --accent-train: #7c4dff;
+  --accent-train-strong: #651fff;
+  --accent-green: #00e676;
+  --accent-red: #ff5252;
+  --text-main: #f9fafb;
+  --text-muted: #94a3b8;
+  --border-subtle: rgba(148, 163, 184, 0.25);
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 0 0, #1d1b40 0, transparent 55%),
+    radial-gradient(circle at 100% 100%, #033649 0, transparent 55%),
+    var(--bg);
+  color: var(--text-main);
+}
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 152, 0, 0.25), transparent 40%),
+    linear-gradient(145deg, #030712, #0b1f4d 55%, #083344);
+}
+
+.login-card {
+  width: min(430px, 100%);
+  padding: 24px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: linear-gradient(150deg, rgba(15, 23, 42, 0.98), rgba(15, 81, 131, 0.88));
+  box-shadow: 0 25px 60px rgba(2, 6, 23, 0.85);
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-brand h1 {
+  margin: 0;
+  font-size: 23px;
+  letter-spacing: 0.02em;
+}
+
+.login-subtitle {
+  margin: 10px 0 14px;
+  color: #bfdbfe;
+  font-size: 13px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #22d3ee, #7c3aed);
+  color: #e2e8f0;
+  margin-top: 6px;
+}
+
+.login-error {
+  margin: 6px 0 0;
+  color: #fecaca;
+  font-size: 12px;
+}
+
+.forgot-link {
+  border: none;
+  background: transparent;
+  color: #93c5fd;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+  align-self: flex-start;
+}
+
+.forgot-link:hover {
+  color: #e0f2fe;
+}
+
+.signup-row {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.signup-link {
+  border: none;
+  background: transparent;
+  color: #67e8f9;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+}
+
+.signup-link:hover {
+  color: #a5f3fc;
+}
+
+.recovery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.recovery-card {
+  width: min(430px, 100%);
+  padding: 18px 18px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: linear-gradient(155deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.95));
+  box-shadow: 0 22px 58px rgba(2, 6, 23, 0.85);
+}
+
+.recovery-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.recovery-subtitle {
+  margin: 8px 0 12px;
+  color: #bfdbfe;
+  font-size: 12px;
+}
+
+.recovery-result {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  border: 1px dashed rgba(147, 197, 253, 0.6);
+  background: rgba(15, 23, 42, 0.75);
+  color: #dbeafe;
+}
+
+.modal-close-btn {
+  margin-top: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.8);
+  color: #e2e8f0;
+  padding: 7px 14px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  border-color: rgba(191, 219, 254, 0.85);
+}
+
+.app-root {
+  max-width: 1280px;
+  margin: 16px auto 24px;
+  padding: 12px 16px 24px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: linear-gradient(120deg, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.85));
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(18px);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.branding h1 {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+}
+
+.logo-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 160deg,
+    #f97316,
+    #facc15,
+    #22c55e,
+    #38bdf8,
+    #a855f7,
+    #ec4899,
+    #f97316
+  );
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.8);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.city-pill {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(15, 118, 110, 0.2), rgba(45, 212, 191, 0.3));
+  font-size: 12px;
+  color: #e0f2f1;
+  border: 1px solid rgba(34, 211, 238, 0.6);
+}
+
+.logout-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(248, 113, 113, 0.65);
+  background: rgba(127, 29, 29, 0.35);
+  color: #fee2e2;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: rgba(185, 28, 28, 0.5);
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.side-panel {
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(15, 81, 131, 0.85));
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(14px);
+}
+
+.tab-switcher {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tab-btn {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--text-muted);
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+}
+
+.tab-btn.bus-theme {
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.tab-btn.train-theme {
+  border-color: rgba(129, 140, 248, 0.5);
+}
+
+.tab-btn.active {
+  color: #0b1120;
+  font-weight: 600;
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+}
+
+.tab-btn.bus-theme.active {
+  background: linear-gradient(135deg, var(--accent-bus), var(--accent-bus-strong));
+}
+
+.tab-btn.train-theme.active {
+  background: linear-gradient(135deg, var(--accent-train), var(--accent-train-strong));
+}
+
+.dashboard {
+  margin-top: 6px;
+  padding: 12px 10px 6px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 0 0, rgba(253, 224, 71, 0.16), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(94, 234, 212, 0.16), transparent 60%),
+    rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.bus-theme-border {
+  border-color: rgba(251, 191, 36, 0.7);
+}
+
+.train-theme-border {
+  border-color: rgba(129, 140, 248, 0.75);
+  background: radial-gradient(circle at 0 0, rgba(129, 140, 248, 0.18), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.18), transparent 60%),
+    rgba(15, 23, 42, 0.94);
+}
+
+.dashboard h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
+.dashboard h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin: 12px 0 8px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.stat-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+  border-radius: 12px;
+  padding: 8px 9px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+}
+
+.stat-card.train {
+  border-color: rgba(129, 140, 248, 0.6);
+}
+
+.stat-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field.two-col {
+  flex-direction: row;
+  gap: 8px;
+}
+
+.field.two-col > div {
+  flex: 1;
+}
+
+label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+input,
+select {
+  border-radius: 999px;
+  border: 1px solid rgba(30, 64, 175, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  padding: 7px 10px;
+  color: var(--text-main);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out,
+    background-color 0.15s ease-out;
+}
+
+input::placeholder {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+input:focus,
+select:focus {
+  border-color: rgba(59, 130, 246, 0.9);
+  background: rgba(15, 23, 42, 0.98);
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.75);
+}
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #60a5fa 50%),
+    linear-gradient(135deg, #60a5fa 50%, transparent 50%);
+  background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  position: relative;
+  border-radius: 999px;
+  padding: 4px 9px;
+  border: 1px solid rgba(249, 250, 251, 0.1);
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip.train {
+  border-color: rgba(129, 140, 248, 0.6);
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip span {
+  position: relative;
+}
+
+.chip::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-sizing: border-box;
+}
+
+.chip input:checked + span {
+  color: #0b1120;
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  font-weight: 600;
+}
+
+.chip input:checked ~ span::before,
+.chip input:checked + span::before {
+  display: none;
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* handled via parent styles below */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op for now */
+}
+
+.chip input:checked {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip-group .chip input:checked ~ span,
+.chip-group .chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* final style override */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* no-op */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* final style */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip input:checked ~ span,
+.chip input:checked + span {
+  /* end */
+}
+
+.chip-group .chip {
+  /* ensure visual checked state via JS (class) later */
+}
+
+.fare-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.fare-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.fare-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.primary-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #0b1120;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+}
+
+.primary-btn.small {
+  padding: 6px 12px;
+  font-size: 11px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.9);
+}
+
+.primary-btn.bus-theme {
+  background: linear-gradient(135deg, var(--accent-bus), var(--accent-bus-strong));
+}
+
+.primary-btn.train-theme {
+  background: linear-gradient(135deg, var(--accent-train), var(--accent-train-strong));
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.9);
+}
+
+.ticket-result {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  font-size: 12px;
+  color: #e5e7eb;
+}
+
+.ticket-result strong {
+  color: #facc15;
+}
+
+.map-panel {
+  background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.3), transparent 65%),
+    radial-gradient(circle at 100% 100%, rgba(14, 165, 233, 0.35), transparent 60%),
+    rgba(15, 23, 42, 0.98);
+  border-radius: var(--radius-lg);
+  padding: 10px 12px 12px;
+  border: 1px solid rgba(59, 130, 246, 0.6);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.map-header h2 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.map-subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+.map-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.map-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-search input {
+  min-width: 230px;
+  font-size: 11px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.bus {
+  background: var(--accent-bus-strong);
+}
+
+.legend-dot.train {
+  background: var(--accent-train-strong);
+}
+
+.map-container {
+  flex: 1;
+  min-height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.9);
+}
+
+.map-footer {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.gps-indicator {
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.7);
+  background: rgba(22, 163, 74, 0.16);
+  color: #bbf7d0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.ticket-result.hidden {
+  display: none;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 960px) {
+  .app-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-root {
+    padding-inline: 10px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    border-radius: 18px;
+  }
+
+  .map-container {
+    min-height: 300px;
+  }
+}
+
+/* ===== LOGIN NEW LAYOUT (FINAL CORRECT) ===== */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.login-card {
+  margin-left: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== CHATBOT (FINAL CORRECT POSITION) ===== */
+
+.chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #22d3ee, #7c3aed);
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.chatbot {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  height: 420px;
+  background: #0f172a;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #334155;
+  z-index: 1000;
+}
+
+.chat-header {
+  background: #1e293b;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.chat-input {
+  display: flex;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  outline: none;
+}
+
+.chat-input button {
+  background: #7c3aed;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background: #6d28d9;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.chatbot-btn {
+  z-index: 9999;
+}
+
+.chatbot {
+  display: flex;
+  z-index: 9999;
+}

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Bangalore Public Transport Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css?v=4" />
+  </head>
+  <body>
+    <section id="loginScreen" class="login-screen">
+  <div class="login-container">
+    <!-- LEFT SIDE -->
+    <div class="welcome-section">
+      <h1>WELCOME BACK</h1>
+      <p>
+        Access your public transport tracker and save your precious time
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="login-card">
+      <div class="login-brand">
+        <span class="logo-dot"></span>
+        <h1>Public Transport Tracker</h1>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="field">
+          <label for="loginUsername">Username</label>
+          <input
+            id="loginUsername"
+            type="text"
+            placeholder="Enter username (e.g. admin)"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Enter password (e.g. admin123)"
+            required
+          />
+        </div>
+
+        <button type="submit" class="primary-btn login-btn">Sign In</button>
+
+        <button
+          id="forgotCredentialsBtn"
+          type="button"
+          class="forgot-link"
+        >
+          Forgot username or password?
+        </button>
+
+        <p class="signup-row">
+          Don't have an account?
+          <button id="openSignupBtn" type="button" class="signup-link">
+            Sign Up
+          </button>
+        </p>
+
+        <p id="loginError" class="login-error hidden">
+          Invalid credentials. Use admin / admin123
+        </p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+    <div id="recoveryModal" class="recovery-modal hidden">
+      <div class="recovery-card">
+        <h3>Recover Account</h3>
+        <p class="recovery-subtitle">
+          Enter your registered email or phone to recover credentials.
+        </p>
+        <form id="recoveryForm" class="login-form">
+          <div class="field">
+            <label for="recoveryInput">Email or Phone</label>
+            <input
+              id="recoveryInput"
+              type="text"
+              placeholder="example@mail.com or 9876543210"
+              required
+            />
+          </div>
+          <button type="submit" class="primary-btn login-btn">
+            Recover Credentials
+          </button>
+          <p id="recoveryResult" class="recovery-result hidden"></p>
+        </form>
+        <button id="closeRecoveryBtn" type="button" class="modal-close-btn">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div id="signupModal" class="recovery-modal hidden">
+      <div class="recovery-card">
+        <h3>Create Account</h3>
+        <p class="recovery-subtitle">
+          Register a username and password for dashboard login.
+        </p>
+        <form id="signupForm" class="login-form">
+          <div class="field">
+            <label for="signupUsername">Username</label>
+            <input
+              id="signupUsername"
+              type="text"
+              placeholder="Choose username"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="signupPassword">Password</label>
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Choose password"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="signupConfirmPassword">Confirm Password</label>
+            <input
+              id="signupConfirmPassword"
+              type="password"
+              placeholder="Re-enter password"
+              required
+            />
+          </div>
+          <button type="submit" class="primary-btn login-btn">Create Account</button>
+          <p id="signupResult" class="recovery-result hidden"></p>
+        </form>
+        <button id="closeSignupBtn" type="button" class="modal-close-btn">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div id="appRoot" class="app-root hidden">
+      <header class="app-header">
+        <div class="branding">
+          <span class="logo-dot"></span>
+          <h1>Banglore Public Transport Live</h1>
+        </div>
+        <div class="header-actions">
+          <span class="city-pill">🛰️ GPS Mode · Bengaluru</span>
+          <button id="logoutBtn" type="button" class="logout-btn">Logout</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <aside class="side-panel">
+          <div class="tab-switcher">
+            <button
+              id="busTabBtn"
+              class="tab-btn active bus-theme"
+              data-target="busDashboard"
+            >
+              🚌 Bus Dashboard
+            </button>
+            <button
+              id="trainTabBtn"
+              class="tab-btn train-theme"
+              data-target="trainDashboard"
+            >
+              🚆 Train Dashboard
+            </button>
+          </div>
+
+          <section id="busDashboard" class="dashboard active bus-theme-border">
+            <h2>Bus Live Tracking</h2>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-label">Active Buses</span>
+                <span id="busCount" class="stat-value">0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Avg ETA</span>
+                <span id="busAvgEta" class="stat-value">–</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">On Time</span>
+                <span id="busOnTime" class="stat-value">–</span>
+              </div>
+            </div>
+
+            <h3>Buy Bus Ticket</h3>
+            <form id="busTicketForm" class="ticket-form">
+              <div class="field">
+                <label for="busRoute">Route</label>
+                <select id="busRoute" required>
+  <option value="">Select route</option>
+  <option value="BTP-12">BTP-12 · Majestic → Electronic City</option>
+  <option value="KRM-21">KRM-21 · KR Market → Whitefield</option>
+  <option value="BLR-09">BLR-09 · Silk Board → Hebbal</option>
+</select>
+
+<!-- ✅ CORRECT PLACE -->
+<div id="busStops" style="margin-top:10px; color:white;"></div>
+              </div>
+              <div class="field two-col">
+                <div>
+                  <label for="busFrom">From</label>
+                  <input
+                    id="busFrom"
+                    type="text"
+                    placeholder="Majestic Bus Stand"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="busTo">To</label>
+                  <input
+                    id="busTo"
+                    type="text"
+                    placeholder="Electronic City"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field two-col">
+                <div>
+                  <label for="busDate">Date</label>
+                  <input id="busDate" type="date" required />
+                </div>
+                <div>
+                  <label for="busPassengers">Passengers</label>
+                  <input
+                    id="busPassengers"
+                    type="number"
+                    min="1"
+                    max="10"
+                    value="1"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Ticket Type</label>
+                <div class="chip-group">
+                  <label class="chip">
+                    <input
+                      type="radio"
+                      name="busType"
+                      value="regular"
+                      checked
+                    />
+                    <span>Regular</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="busType" value="student" />
+                    <span>Student</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="busType" value="day-pass" />
+                    <span>Day Pass</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="fare-row">
+                <div>
+                  <span class="fare-label">Estimated Fare</span>
+                  <span id="busFare" class="fare-value hidden">₹0.00</span>
+                </div>
+                <button type="submit" class="primary-btn bus-theme">
+                  Buy Bus Ticket
+                </button>
+              </div>
+            </form>
+
+            <div id="busTicketResult" class="ticket-result hidden"></div>
+          </section>
+
+          <section
+            id="trainDashboard"
+            class="dashboard train-theme-border hidden"
+          >
+            <h2>Train Live Tracking</h2>
+            <div class="stats-grid">
+              <div class="stat-card train">
+                <span class="stat-label">Active Trains</span>
+                <span id="trainCount" class="stat-value">0</span>
+              </div>
+              <div class="stat-card train">
+                <span class="stat-label">Avg ETA</span>
+                <span id="trainAvgEta" class="stat-value">–</span>
+              </div>
+              <div class="stat-card train">
+                <span class="stat-label">On Time</span>
+                <span id="trainOnTime" class="stat-value">–</span>
+              </div>
+            </div>
+
+            <h3>Buy Train Ticket</h3>
+            <form id="trainTicketForm" class="ticket-form">
+              <div class="field">
+                <label for="trainLine">Train / Metro Line</label>
+                <select id="trainLine" required>
+                  <option value="">Select line</option>
+                  <option value="Namma Purple">Purple Line · Baiyappanahalli → Kengeri</option>
+                  <option value="Namma Green">Green Line · Nagasandra → Silk Institute</option>
+                  <option value="Suburban SBC–YPR">
+                    Suburban · KSR Bangalore → Yeshwantpur
+                  </option>
+                </select>
+              </div>
+              <div class="field two-col">
+                <div>
+                  <label for="trainFrom">From</label>
+                  <input
+                    id="trainFrom"
+                    type="text"
+                    placeholder="KSR Bangalore"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="trainTo">To</label>
+                  <input
+                    id="trainTo"
+                    type="text"
+                    placeholder="Yeshwantpur"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field two-col">
+                <div>
+                  <label for="trainDate">Date</label>
+                  <input id="trainDate" type="date" required />
+                </div>
+                <div>
+                  <label for="trainPassengers">Passengers</label>
+                  <input
+                    id="trainPassengers"
+                    type="number"
+                    min="1"
+                    max="10"
+                    value="1"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Class</label>
+                <div class="chip-group">
+                  <label class="chip train">
+                    <input
+                      type="radio"
+                      name="trainClass"
+                      value="second"
+                      checked
+                    />
+                    <span>Second</span>
+                  </label>
+                  <label class="chip train">
+                    <input type="radio" name="trainClass" value="first" />
+                    <span>First</span>
+                  </label>
+                  <label class="chip train">
+                    <input type="radio" name="trainClass" value="ac" />
+                    <span>AC Chair</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="fare-row">
+                <div>
+                  <span class="fare-label">Estimated Fare</span>
+                  <span id="trainFare" class="fare-value hidden">₹0.00</span>
+                </div>
+                <button type="submit" class="primary-btn train-theme">
+                  Buy Train Ticket
+                </button>
+              </div>
+            </form>
+
+            <div id="trainTicketResult" class="ticket-result hidden"></div>
+          </section>
+        </aside>
+
+        <section class="map-panel">
+          <div class="map-header">
+            <div>
+              <h2>Bangalore Live Map</h2>
+              <p class="map-subtitle">
+                Track a specific bus or train ID along real roads.
+              </p>
+            </div>
+            <div class="map-controls">
+              <div class="map-search">
+                <input
+                  id="vehicleSearchInput"
+                  type="text"
+                  placeholder="Search Vehicle ID (e.g. BTP-12, MET-GREEN)"
+                  autocomplete="off"
+                />
+                <button id="vehicleSearchBtn" class="primary-btn small">
+                  Track
+                </button>
+              </div>
+              <div class="map-legend">
+                <span class="legend-item">
+                  <span class="legend-dot bus"></span> Bus
+                </span>
+                <span class="legend-item">
+                  <span class="legend-dot train"></span> Train
+                </span>
+              </div>
+            </div>
+          </div>
+          <div id="map" class="map-container"></div>
+          <div class="map-footer">
+            <span id="lastUpdate">Last update: –</span>
+            <span class="gps-indicator">GPS mode · simulated live feed</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="app.js?v=4"></script>
+    <!-- ================= CHATBOT ================= -->
+
+<button id="chatToggle" class="chatbot-btn">🤖</button>
+
+<div id="chatbot" class="chatbot hidden">
+  <div class="chat-header">
+    <span>Transport Assistant</span>
+    <button id="closeChat">✖</button>
+  </div>
+
+  <div id="chatMessages" class="chat-messages">
+
+  <div class="quick-actions">
+    <button class="quick-btn">🎫 Book Ticket</button>
+    <button class="quick-btn">🔄 Refund</button>
+    <button class="quick-btn">❓ Help</button>
+    <button class="quick-btn">⋯ Other</button>
+  </div>
+
+    </div> <!-- closes chatMessages -->
+
+  <!-- INPUT SECTION -->
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Ask something..." />
+    <button id="sendChat">➤</button>
+  </div>
+
+</div> <!-- closes chatbot -->
+
+</body>
+</html>
+
+
